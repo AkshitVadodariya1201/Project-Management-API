@@ -1,0 +1,23 @@
+[
+    {
+        "_id": "8ccb61f5-d731-448b-ba8e-0f5d08df2c94",
+        "owner_id": "0820e4ec-462d-4f61-a830-8573fa227a5d",
+        "name": "Selling",
+        "description": "Sell Cars",
+        "status": "NotStarted"
+    },
+    {
+        "_id": "d0c7d1b6-4690-4d68-9a01-b9cd99d181a5",
+        "owner_id": "859dd8ab-f058-473f-8fb6-75b797265ece",
+        "name": "Buying",
+        "description": "Buy Cars",
+        "status": "InProgress"
+    },
+    {
+        "_id": "b15cc5e2-91c1-472c-a499-5e875117812d",
+        "owner_id": "a2714bb2-0d89-484f-9c3d-3f5441b85c54",
+        "name": "Running",
+        "description": "Run Cars",
+        "status": "Completed"
+    }
+]
