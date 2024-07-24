@@ -1,5 +1,15 @@
-use async_graphql::EmptySubscription;
-use project_management::{config::{owner_data::OwnerData, project_data::ProjectData}, handler::graphql_handler::Query};
+use async_graphql::{EmptySubscription, Schema};
+use project_management::{
+    config::{
+        json_read_write::{owner_read_json_data, project_read_json_data},
+        owner_data::OwnerData,
+        project_data::ProjectData,
+    },
+    handler::graphql_handler::{Mutation, Query},
+    schema::{owner_schema::Owner, project_schema::Project},
+};
+use rocket::tokio;
+use serde_json::Value as JsonValue;
 
 #[tokio::test]
 async fn test_for_owner() {
@@ -11,12 +21,12 @@ async fn test_for_owner() {
     let response = schema
         .execute(
             r#"{
-        owner(input:{id:"389287"}) {
-            name
-            email
-            phone
-        }
-    }"#,
+                owner(input:{id:"389287"}) {
+                    name
+                    email
+                    phone
+                }
+            }"#,
         )
         .await
         .into_result()
@@ -30,7 +40,7 @@ async fn test_for_owner() {
 
     let data_json = &json_value["data"]["owner"]["name"];
 
-    let read_filedata: Vec<Owner> = read_data("owner.json").unwrap();
+    let read_filedata: Vec<Owner> = owner_read_json_data("owner.json");
     let file_name_data = &read_filedata[0].name;
 
     assert_eq!(data_json, file_name_data)
@@ -47,13 +57,13 @@ async fn test_for_get_owners() {
     let response = schema
         .execute(
             r#"query{
-  getOwners{
-      id
-    name
-    email
-    phone
-  }
-}"#,
+                getOwners{
+                    id
+                    name
+                    email
+                    phone
+                }
+            }"#,
         )
         .await
         .into_result()
@@ -75,8 +85,10 @@ async fn test_for_get_owners() {
             }
         }
     }
-    let _file_data: JsonValue = read_data("owner.json").unwrap();
-    assert_eq!(*_check_data.to_string().trim(), _file_data.to_string());
+    let _file_data: Vec<Owner> = owner_read_json_data("owner.json");
+    let read_file = &_file_data[0]._id;
+
+    assert_eq!(*_check_data.to_string(), read_file.clone().unwrap());
 }
 #[tokio::test]
 async fn test_for_project() {
@@ -88,14 +100,14 @@ async fn test_for_project() {
     let response = schema
         .execute(
             r#"{
-  project(input:{id:"1111111"}){
-    id
-    ownerId
-    name
-    description
-    status
-  }
-    }"#,
+                project(input:{id:"1111111"}){
+                    id
+                    ownerId
+                    name
+                    description
+                    status
+                }
+            }"#,
         )
         .await
         .into_result()
@@ -110,10 +122,10 @@ async fn test_for_project() {
 
     let data_json = &json_value["data"]["project"]["id"];
 
-    let read_filedata: JsonValue = read_data("project.json").unwrap();
-    let file_name_data = &read_filedata[0]["_id"];
+    let read_filedata: Vec<Project> = project_read_json_data("project.json");
+    let file_name_data = &read_filedata[0]._id;
 
-    assert_eq!(data_json.to_string(), file_name_data.to_string());
+    assert_eq!(data_json.to_string(), file_name_data.clone().unwrap());
 
     // assert_eq!(data_json, file_name_data)
 
@@ -129,14 +141,14 @@ async fn test_for_get_projects() {
     let response = schema
         .execute(
             r#"query{
-  getProjects{
-    id
-    ownerId
-    name
-    description
-    status
-  }
-}"#,
+                getProjects{
+                    id
+                    ownerId
+                    name
+                    description
+                    status
+                }
+            }"#,
         )
         .await
         .into_result()
@@ -148,7 +160,7 @@ async fn test_for_get_projects() {
     let mut json_value: JsonValue =
         serde_json::from_str(&response_json).expect("Failed to parse JSON");
 
-    let read_filedata: JsonValue = read_data("project.json").unwrap();
+    let read_filedata: Vec<Project> = project_read_json_data("project.json");
 
     let mut _check_data = &mut json_value["data"]["getProjects"];
     if let Some(array) = _check_data.as_array_mut() {
@@ -164,8 +176,8 @@ async fn test_for_get_projects() {
         }
     }
     let data_json = &mut json_value["data"]["getProjects"];
-    let file_name_data = &read_filedata;
-    assert_eq!(data_json.to_string(), file_name_data.to_string());
+    let file_name_data = &read_filedata[0]._id;
+    assert_eq!(data_json.to_string(), file_name_data.clone().unwrap());
 
     // println!("{}\n{}",data_json,file_name_data); //make sure by printing those things
 }
