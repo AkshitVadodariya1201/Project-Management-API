@@ -24,7 +24,7 @@ To get started with the Project Management API, ensure you have Rust and Cargo i
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/your-repository/project-management-api.git
+   git clone https://github.com/AkshitVadodariya1201/Project-Management-API.git
    ```
 
 2. Change into the project directory:
