@@ -1,7 +1,3 @@
-use async_graphql::Subscription;
-use async_graphql::{Context, EmptySubscription, FieldResult, Object, Schema, Error};
-use rocket::futures::Stream;
-use redis::Client;
 use crate::{
     config::{owner_data::OwnerData, project_data::ProjectData},
     schema::{
@@ -9,6 +5,10 @@ use crate::{
         project_schema::{CreateProject, FetchProject, Project},
     },
 };
+use async_graphql::Subscription;
+use async_graphql::{Context, EmptySubscription, Error, FieldResult, Object, Schema};
+use redis::Client;
+use rocket::futures::Stream;
 
 pub struct Query;
 

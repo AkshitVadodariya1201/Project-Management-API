@@ -26,11 +26,11 @@ pub async fn graphql_playground() -> content::RawHtml<String> {
     content::RawHtml(playground_source(GraphQLPlaygroundConfig::new("/graphql")))
 }
 
-#[rocket::get("/echo?stream")]
-fn echo_stream(ws: ws::WebSocket) -> ws::Stream!['static] {
-    ws::Stream! { ws =>
-        for await message in ws {
-            yield message?;
-        }
-    }
-}
+// #[rocket::get("/echo?stream")]
+// fn echo_stream(ws: ws::WebSocket) -> ws::Stream!['static] {
+//     ws::Stream! { ws =>
+//         for await message in ws {
+//             yield message?;
+//         }
+//     }
+// }
