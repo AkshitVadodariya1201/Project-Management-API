@@ -34,10 +34,10 @@ To get started with the Project Management API, ensure you have Rust and Cargo i
    ```
 
 3. Run the application using Cargo:
+
    ```sh
    cargo run
    ```
-
 
 4. Access the GraphQL playground at `http://localhost:8000` to interact with the API.
 
@@ -46,20 +46,50 @@ To get started with the Project Management API, ensure you have Rust and Cargo i
 The Project Management API provides a GraphQL interface for managing projects and their owners. You can perform the following operations using the provided queries and mutations:
 
 - **Queries**:
+
   - `projects`: Retrieve a list of all projects.
   - `project(id: ID!)`: Retrieve a specific project by ID.
   - `owners`: Retrieve a list of all owners.
   - `owner(id: ID!)`: Retrieve a specific owner by ID.
 
 - **Mutations**:
-    - `createProject(input: ProjectInput!)`: Create a new project with the specified input.
-    - `updateProject(id: ID!, input: ProjectInput!)`: Update an existing project with the specified ID and input.
-    - `deleteProject(id: ID!)`: Delete a project with the specified ID.
-    - `createOwner(input: OwnerInput!)`: Create a new owner with the specified input.
-    - `updateOwner(id: ID!, input: OwnerInput!)`: Update an existing owner with the specified ID and input.
-    - `deleteOwner(id: ID!)`: Delete an owner with the specified ID.
+  - `createProject(input: ProjectInput!)`: Create a new project with the specified input.
+  - `updateProject(id: ID!, input: ProjectInput!)`: Update an existing project with the specified ID and input.
+  - `deleteProject(id: ID!)`: Delete a project with the specified ID.
+  - `createOwner(input: OwnerInput!)`: Create a new owner with the specified input.
+  - `updateOwner(id: ID!, input: OwnerInput!)`: Update an existing owner with the specified ID and input.
+  - `deleteOwner(id: ID!)`: Delete an owner with the specified ID.
 
 For detailed information on the available queries and mutations, refer to the GraphQL schema in the GraphQL playground.
+
+## API Test using Hoppscotch
+
+To test the Project Management API endpoints, you can use Hoppscotch, a popular API testing tool. Follow the steps below to set up and run the API test using Hoppscotch:
+
+1. Install Hoppscotch: 
+    - Visit the Hoppscotch website at [https://hoppscotch.io/](https://hoppscotch.io/)
+    - Download and install the appropriate version for your operating system.
+
+2. Launch Hoppscotch:
+    - Open Hoppscotch on your computer.
+
+3. Import the Project Management API collection:
+    - Click on the "Import" button in Hoppscotch.
+    - Select the option to import from a file.
+    - Choose the collection file provided with the Project Management API repository.
+
+4. Configure the environment variables:
+    - In Hoppscotch, click on the "Environment" button.
+    - Add a new environment and provide the necessary variables such as the API base URL.
+
+5. Run the API test:
+    - Select the desired API request from the imported collection.
+    - Fill in the required parameters and headers.
+    - Click on the "Send" button to execute the request.
+    - Review the response and verify the expected results.
+
+By following these steps, you can easily test the Project Management API using Hoppscotch and ensure the functionality and reliability of the endpoints.
+
 
 ## Testing
 
@@ -70,10 +100,6 @@ cargo test
 ```
 
 The tests cover GraphQL queries and mutations, as well as JSON data handling, to validate the application's functionality.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
@@ -87,5 +113,8 @@ For more information on Rocket, Async-GraphQL, and other libraries used in this 
 - [reqwest](https://docs.rs/reqwest/0.11.4/reqwest/)
 - [tokio](https://tokio.rs/)
 
-Happy coding!🦀🚀
+## License
 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Happy coding!🦀🚀
